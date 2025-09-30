@@ -2,6 +2,8 @@
 
 Take beautiful screenshots of code.
 
+![Example screenshot](./example.png)
+
 ## Status
 
 **Implemented:**
