@@ -104,8 +104,6 @@ and TITLE is an optional title."
 (defun shotify-screenshot (start end)
   "Take a screenshot of the selected region from START to END."
   (interactive "r")
-  (unless (use-region-p)
-    (user-error "No region selected"))
   (let* ((code (buffer-substring-no-properties start end))
          (lang (shotify--get-language))
          (start-line (line-number-at-pos start))
