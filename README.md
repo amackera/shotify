@@ -157,6 +157,33 @@ See [adapters/vscode/README.md](adapters/vscode/README.md) for more details.
 
 See [adapters/emacs/README.md](adapters/emacs/README.md) for more details.
 
+## Available Themes
+
+Shotify uses [Shiki](https://shiki.style) for syntax highlighting, providing access to 55 beautiful bundled themes. You can configure the theme via:
+- CLI: `--theme <name>` flag
+- VS Code: `shotify.theme` setting
+- Emacs: `shotify-theme` variable
+- Core API: `theme` option in `renderHtml()` or `renderPng()`
+
+**Popular Themes:**
+- `github-dark` (default) - GitHub's dark theme
+- `github-light` - GitHub's light theme
+- `dracula` - The popular Dracula theme
+- `monokai` - Classic Monokai
+- `nord` - Arctic, north-bluish color palette
+- `tokyo-night` - Clean, dark theme
+- `material-theme` - Material Design inspired
+- `one-dark-pro` - Atom's iconic One Dark theme
+
+**All Dark Themes:**
+`andromeeda`, `aurora-x`, `ayu-dark`, `catppuccin-frappe`, `catppuccin-macchiato`, `catppuccin-mocha`, `dark-plus`, `dracula`, `dracula-soft`, `everforest-dark`, `github-dark`, `github-dark-default`, `github-dark-dimmed`, `github-dark-high-contrast`, `houston`, `kanagawa-dragon`, `kanagawa-wave`, `laserwave`, `material-theme`, `material-theme-darker`, `material-theme-ocean`, `material-theme-palenight`, `min-dark`, `monokai`, `night-owl`, `nord`, `one-dark-pro`, `plastic`, `poimandres`, `red`, `rose-pine`, `rose-pine-moon`, `slack-dark`, `solarized-dark`, `synthwave-84`, `tokyo-night`, `vesper`, `vitesse-black`, `vitesse-dark`
+
+**All Light Themes:**
+`catppuccin-latte`, `everforest-light`, `github-light`, `github-light-default`, `github-light-high-contrast`, `kanagawa-lotus`, `light-plus`, `material-theme-lighter`, `min-light`, `one-light`, `rose-pine-dawn`, `slack-ochin`, `snazzy-light`, `solarized-light`, `vitesse-light`
+
+**Preview Themes:**
+Visit [shiki.style/themes](https://shiki.style/themes) to preview all themes with live code examples.
+
 ## Development
 
 ```bash
