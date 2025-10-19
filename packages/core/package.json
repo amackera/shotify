@@ -28,12 +28,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/shotify.git",
+    "url": "https://github.com/amackera/shotify.git",
     "directory": "packages/core"
   },
-  "homepage": "https://github.com/yourusername/shotify#readme",
+  "homepage": "https://github.com/amackera/shotify#readme",
   "bugs": {
-    "url": "https://github.com/yourusername/shotify/issues"
+    "url": "https://github.com/amackera/shotify/issues"
   },
   "license": "MIT",
   "dependencies": {
