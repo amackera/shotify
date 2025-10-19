@@ -1,6 +1,7 @@
 {
   "name": "@shotify/core",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "description": "Core screenshot generation library for beautiful code screenshots",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -10,11 +11,31 @@
       "import": "./dist/index.js"
     }
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
     "test": "tsc && node test.ts"
   },
+  "keywords": [
+    "screenshot",
+    "code",
+    "syntax-highlighting",
+    "shiki",
+    "image"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/shotify.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/yourusername/shotify#readme",
+  "bugs": {
+    "url": "https://github.com/yourusername/shotify/issues"
+  },
+  "license": "MIT",
   "dependencies": {
     "shiki": "^1.22.2",
     "puppeteer": "^23.9.0"
