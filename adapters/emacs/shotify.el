@@ -78,7 +78,7 @@
   "Generate an output path for the screenshot."
   (let* ((dir (expand-file-name shotify-output-directory))
          (timestamp (format-time-string "%Y%m%d-%H%M%S"))
-         (filename (format "shotify-%s.png" timestamp)))
+         (filename (format "shotify-%s-%s.png" shotify-theme timestamp)))
     (unless (file-exists-p dir)
       (make-directory dir t))
     (expand-file-name filename dir)))

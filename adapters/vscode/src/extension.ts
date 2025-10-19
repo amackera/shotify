@@ -87,16 +87,17 @@ async function handleScreenshot(fullFile: boolean, toClipboard: boolean) {
         };
 
         // Determine output path
+        const theme = renderOptions.theme || 'github-dark';
         const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
         let outputPath: string;
 
         if (toClipboard) {
           // Use temp directory for clipboard operations
-          outputPath = join(tmpdir(), `shotify-${timestamp}.png`);
+          outputPath = join(tmpdir(), `shotify-${theme}-${timestamp}.png`);
         } else {
           // Save to configured directory
           const outputDir = expandPath(config.get('outputDirectory', '~/Screenshots'));
-          outputPath = join(outputDir, `shotify-${timestamp}.png`);
+          outputPath = join(outputDir, `shotify-${theme}-${timestamp}.png`);
         }
 
         const result = await renderPng(code, {

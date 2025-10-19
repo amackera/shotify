@@ -117,7 +117,8 @@ export async function renderPng(
   const html = await renderHtml(code, renderOpts);
 
   // Determine output path
-  const outPath = out || resolve(process.cwd(), `screenshot-${Date.now()}.png`);
+  const theme = renderOpts.theme || 'github-dark';
+  const outPath = out || resolve(process.cwd(), `screenshot-${theme}-${Date.now()}.png`);
   await mkdir(dirname(outPath), { recursive: true });
 
   // Launch headless browser and render
