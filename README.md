@@ -7,12 +7,14 @@ Take beautiful screenshots of code.
 ## Status
 
 **Implemented:**
+
 - ✅ `@shotify/core` - Core screenshot generation (HTML/PNG rendering)
 - ✅ `@shotify/cli` - Command-line interface
 - ✅ Emacs integration
+- ✅ VS Code extension
 
 **Planned:**
-- ⏳ VS Code extension
+
 - ⏳ Zed editor integration
 - ⏳ Neovim plugin
 
@@ -69,6 +71,44 @@ shotify code.py --theme github-light --title "My Script" --width 1000
 - `-p, --padding <value>` - Padding (default: 2rem)
 - `-b, --background <color>` - Background color (default: #1e1e1e)
 - `-o, --out <path>` - Output file path
+
+### VS Code
+
+**Installation:**
+
+1. Build the extension:
+   ```bash
+   cd adapters/vscode
+   pnpm install
+   pnpm run build
+   ```
+
+2. Install the extension in VS Code:
+   - Option A: Run `pnpm run package` to create a `.vsix` file, then install via VS Code's "Install from VSIX" command
+   - Option B: Open the `adapters/vscode` folder in VS Code and press F5 to launch in development mode
+
+**Usage:**
+
+Open the Command Palette (`Cmd+Shift+P` on macOS, `Ctrl+Shift+P` on Windows/Linux) and search for:
+- `Shotify: Screenshot Selection` - Screenshot selected code and save to file
+- `Shotify: Screenshot File` - Screenshot entire file and save to file
+- `Shotify: Screenshot Selection to Clipboard` - Screenshot selected code and copy to clipboard
+- `Shotify: Screenshot File to Clipboard` - Screenshot entire file and copy to clipboard
+
+**Configuration:**
+
+```json
+{
+  "shotify.theme": "github-dark",
+  "shotify.width": 800,
+  "shotify.showLineNumbers": true,
+  "shotify.outputDirectory": "~/Screenshots",
+  "shotify.padding": "2rem",
+  "shotify.background": "#1e1e1e"
+}
+```
+
+See [adapters/vscode/README.md](adapters/vscode/README.md) for more details.
 
 ### Emacs
 
