@@ -20,9 +20,39 @@ Take beautiful screenshots of code.
 
 ## Installation
 
+### Prerequisites
+
+- Node.js 16 or higher
+- pnpm 10.18+ (install via `npm install -g pnpm`)
+
+### Install from Source
+
+1. **Clone and build the project:**
+   ```bash
+   git clone https://github.com/yourusername/shotify.git
+   cd shotify
+   pnpm install
+   pnpm build
+   ```
+
+2. **Install the CLI globally:**
+   ```bash
+   cd packages/cli
+   pnpm link --global
+   ```
+
+3. **Verify installation:**
+   ```bash
+   shotify --version
+   ```
+
+The `shotify` command is now available globally on your system.
+
+### Install from npm (Coming Soon)
+
+Once published to npm, you'll be able to install with:
 ```bash
-pnpm install
-pnpm build
+npm install -g @shotify/cli
 ```
 
 ## Usage
@@ -114,11 +144,7 @@ See [adapters/vscode/README.md](adapters/vscode/README.md) for more details.
 
 **Installation:**
 
-1. Ensure `shotify` CLI is installed and available in your PATH:
-   ```bash
-   cd packages/cli
-   pnpm link --global
-   ```
+1. Ensure `shotify` CLI is installed (see [Installation](#installation) section above)
 
 2. Add to your Emacs config (`~/.emacs.d/init.el` or `~/.emacs`):
    ```elisp
@@ -129,7 +155,7 @@ See [adapters/vscode/README.md](adapters/vscode/README.md) for more details.
    (global-set-key (kbd "C-c s") 'shotify-screenshot)
    ```
 
-3. Restart Emacs or evaluate the configuration.
+3. Restart Emacs or evaluate the configuration
 
 **Usage:**
 
