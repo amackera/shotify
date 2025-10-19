@@ -1,5 +1,14 @@
 # @shotify/core
 
+## 0.1.2
+
+### Patch Changes
+
+- Added comprehensive README documentation for npm packages
+  - Added detailed README.md for @shotify/core with API documentation and examples
+  - Added comprehensive README.md for @shotify/cli with usage examples and all CLI options
+  - Added MIT LICENSE file to repository
+
 ## 0.1.1
 
 ### Patch Changes

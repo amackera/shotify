@@ -1,6 +1,6 @@
 {
   "name": "@shotify/cli",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Command-line tool for taking beautiful screenshots of code",
   "type": "module",
   "bin": {

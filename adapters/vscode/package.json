@@ -2,7 +2,7 @@
   "name": "shotify-vscode",
   "displayName": "Shotify",
   "description": "Take beautiful screenshots of your code",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publisher": "shotify",
   "engines": {
     "vscode": "^1.80.0"
