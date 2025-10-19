@@ -1,0 +1,92 @@
+{
+  "name": "shotify-vscode",
+  "displayName": "Shotify",
+  "description": "Take beautiful screenshots of your code",
+  "version": "0.1.0",
+  "publisher": "shotify",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "screenshot",
+    "code",
+    "share",
+    "export"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "shotify.screenshotSelection",
+        "title": "Shotify: Screenshot Selection"
+      },
+      {
+        "command": "shotify.screenshotFile",
+        "title": "Shotify: Screenshot File"
+      },
+      {
+        "command": "shotify.screenshotSelectionToClipboard",
+        "title": "Shotify: Screenshot Selection to Clipboard"
+      },
+      {
+        "command": "shotify.screenshotFileToClipboard",
+        "title": "Shotify: Screenshot File to Clipboard"
+      }
+    ],
+    "configuration": {
+      "title": "Shotify",
+      "properties": {
+        "shotify.theme": {
+          "type": "string",
+          "default": "github-dark",
+          "description": "Color theme for screenshots"
+        },
+        "shotify.width": {
+          "type": "number",
+          "default": 800,
+          "description": "Screenshot width in pixels"
+        },
+        "shotify.showLineNumbers": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show line numbers in screenshots"
+        },
+        "shotify.outputDirectory": {
+          "type": "string",
+          "default": "~/Screenshots",
+          "description": "Directory to save screenshots"
+        },
+        "shotify.padding": {
+          "type": "string",
+          "default": "2rem",
+          "description": "Padding around code"
+        },
+        "shotify.background": {
+          "type": "string",
+          "default": "#1e1e1e",
+          "description": "Background color"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run build",
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "package": "vsce package"
+  },
+  "dependencies": {
+    "@shotify/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "@types/vscode": "^1.80.0",
+    "@vscode/vsce": "^3.2.1",
+    "tsup": "^8.5.0",
+    "typescript": "^5.6.3"
+  }
+}
