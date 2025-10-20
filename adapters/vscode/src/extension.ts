@@ -84,6 +84,7 @@ async function handleScreenshot(fullFile: boolean, toClipboard: boolean) {
           width: config.get('width', 800),
           padding: config.get('padding', '2rem'),
           background: config.get('background', '#1e1e1e'),
+          scale: config.get('scale', 2),
         };
 
         // Determine output path

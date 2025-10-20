@@ -12,6 +12,7 @@ export type RenderOptions = {
   width?: number;
   padding?: string;
   background?: string;
+  scale?: number;
 };
 
 export async function renderHtml(code: string, opts: RenderOptions): Promise<string> {
@@ -129,6 +130,15 @@ export async function renderPng(
 
   try {
     const page = await browser.newPage();
+
+    // Set viewport with high DPI for crisp screenshots
+    const scale = renderOpts.scale || 2;
+    await page.setViewport({
+      width: 1920,
+      height: 1080,
+      deviceScaleFactor: scale,
+    });
+
     await page.setContent(html);
 
     // Wait for fonts and styles to load

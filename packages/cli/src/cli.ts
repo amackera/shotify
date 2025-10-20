@@ -20,6 +20,7 @@ program
   .option('-w, --width <pixels>', 'Screenshot width in pixels', '800')
   .option('-p, --padding <value>', 'Padding around code', '2rem')
   .option('-b, --background <color>', 'Background color', '#1e1e1e')
+  .option('-s, --scale <factor>', 'Resolution scale factor (1=normal, 2=retina, 3=ultra)', '2')
   .option('-o, --out <path>', 'Output file path')
   .action(async (file, options) => {
     try {
@@ -47,6 +48,7 @@ program
         width: parseInt(options.width, 10),
         padding: options.padding,
         background: options.background,
+        scale: parseInt(options.scale, 10),
       };
 
       const { outPath } = await renderPng(code, {
