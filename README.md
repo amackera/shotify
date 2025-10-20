@@ -8,8 +8,8 @@ Take beautiful screenshots of code.
 
 **Implemented:**
 
-- ✅ `@shotify/core` - Core screenshot generation (HTML/PNG rendering)
-- ✅ `@shotify/cli` - Command-line interface
+- ✅ [`@shotify/core`](https://www.npmjs.com/package/@shotify/core) - Core screenshot generation (HTML/PNG rendering)
+- ✅ [`@shotify/cli`](https://www.npmjs.com/package/@shotify/cli) - Command-line interface
 - ✅ Emacs integration
 - ✅ VS Code extension
 
@@ -20,40 +20,44 @@ Take beautiful screenshots of code.
 
 ## Installation
 
-### Prerequisites
+### Install from npm
 
-- Node.js 16 or higher
-- pnpm 10.18+ (install via `npm install -g pnpm`)
+**CLI Tool (Recommended):**
+```bash
+npm install -g @shotify/cli
+```
+
+**Core Library (for Node.js projects):**
+```bash
+npm install @shotify/core
+```
+
+Verify installation:
+```bash
+shotify --version
+```
 
 ### Install from Source
 
-1. **Clone and build the project:**
+For development or contributing:
+
+1. **Prerequisites:**
+   - Node.js 16 or higher
+   - pnpm 10.18+ (install via `npm install -g pnpm`)
+
+2. **Clone and build:**
    ```bash
-   git clone https://github.com/yourusername/shotify.git
+   git clone https://github.com/amackera/shotify.git
    cd shotify
    pnpm install
    pnpm build
    ```
 
-2. **Install the CLI globally:**
+3. **Link CLI globally:**
    ```bash
    cd packages/cli
    pnpm link --global
    ```
-
-3. **Verify installation:**
-   ```bash
-   shotify --version
-   ```
-
-The `shotify` command is now available globally on your system.
-
-### Install from npm (Coming Soon)
-
-Once published to npm, you'll be able to install with:
-```bash
-npm install -g @shotify/cli
-```
 
 ## Usage
 
