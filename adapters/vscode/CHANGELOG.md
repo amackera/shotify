@@ -1,5 +1,11 @@
 # shotify-vscode
 
+## 0.2.1
+
+### Patch Changes
+
+- Add Shotify logo icon to extension
+
 ## 0.2.0
 
 ### Minor Changes
