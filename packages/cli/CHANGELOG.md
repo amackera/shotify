@@ -1,5 +1,16 @@
 # @shotify/cli
 
+## 0.2.0
+
+### Minor Changes
+
+- Add high-DPI rendering support with configurable scale factor. Screenshots now default to 2x resolution for crisp, retina-quality output. New `scale` option allows choosing between 1x (normal), 2x (retina), or 3x (ultra-HD) rendering quality.
+
+### Patch Changes
+
+- Updated dependencies
+  - @shotify/core@0.2.0
+
 ## 0.1.2
 
 ### Patch Changes

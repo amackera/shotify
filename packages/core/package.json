@@ -1,6 +1,6 @@
 {
   "name": "@shotify/core",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Core screenshot generation library for beautiful code screenshots",
   "type": "module",
   "main": "./dist/index.js",
