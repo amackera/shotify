@@ -3,7 +3,7 @@
   "displayName": "Shotify",
   "description": "Take beautiful screenshots of your code",
   "version": "0.2.1",
-  "publisher": "shotify-codesq",
+  "publisher": "shotify-codes",
   "icon": "icon.png",
   "private": true,
   "engines": {
