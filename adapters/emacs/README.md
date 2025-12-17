@@ -25,12 +25,15 @@ pnpm link --global
 ```elisp
 (use-package shotify
   :vc (:url "https://github.com/amackera/shotify"
-       :lisp-dir "adapters/emacs")
+       :lisp-dir "adapters/emacs"
+       :rev :newest)
   :bind (("C-c s s" . shotify-screenshot)
          ("C-c s b" . shotify-screenshot-buffer)
          ("C-c s c" . shotify-screenshot-to-clipboard)
          ("C-c s C" . shotify-screenshot-buffer-to-clipboard)))
 ```
+
+Note: `:rev :newest` is required because the package lives in a subdirectory of the monorepo.
 
 ### Using straight.el
 
@@ -109,7 +112,8 @@ Customize settings with `M-x customize-group RET shotify RET` or add to your con
 ```elisp
 (use-package shotify
   :vc (:url "https://github.com/amackera/shotify"
-       :lisp-dir "adapters/emacs")
+       :lisp-dir "adapters/emacs"
+       :rev :newest)
   :custom
   (shotify-theme "dracula")
   (shotify-width 1000)
