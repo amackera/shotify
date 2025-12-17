@@ -6,7 +6,7 @@
 ;; Version: 0.1.0
 ;; Package-Requires: ((emacs "25.1"))
 ;; Keywords: tools, convenience
-;; URL: https://github.com/yourusername/shotify
+;; URL: https://github.com/amackera/shotify
 
 ;;; Commentary:
 
