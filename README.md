@@ -12,11 +12,11 @@ Take beautiful screenshots of code.
 - ✅ [`@shotify/cli`](https://www.npmjs.com/package/@shotify/cli) - Command-line interface
 - ✅ Emacs integration
 - ✅ VS Code extension
+- ✅ Neovim plugin
 
 **Planned:**
 
 - ⏳ Zed editor integration
-- ⏳ Neovim plugin
 
 ## Installation
 
@@ -187,12 +187,89 @@ See [adapters/vscode/README.md](adapters/vscode/README.md) for more details.
 
 See [adapters/emacs/README.md](adapters/emacs/README.md) for more details.
 
+### Neovim
+
+**Installation:**
+
+1. Ensure `shotify` CLI is installed (see [Installation](#installation) section above)
+
+2. Add to your Neovim config using your preferred plugin manager:
+
+   **Using [lazy.nvim](https://github.com/folke/lazy.nvim):**
+   ```lua
+   {
+     dir = '/path/to/shotify/adapters/nvim',
+     name = 'shotify',
+     config = function()
+       require('shotify').setup({
+         theme = 'github-dark',
+         width = 800,
+         show_line_numbers = true,
+         output_directory = '~/Screenshots',
+       })
+     end,
+   }
+   ```
+
+   **Using [packer.nvim](https://github.com/wbthomason/packer.nvim):**
+   ```lua
+   use {
+     '/path/to/shotify/adapters/nvim',
+     as = 'shotify',
+     config = function()
+       require('shotify').setup()
+     end
+   }
+   ```
+
+3. Restart Neovim or reload your configuration
+
+**Usage:**
+
+Commands:
+- `:ShotifySelection` - Screenshot selected code (use in visual mode)
+- `:ShotifyFile` - Screenshot entire file
+- `:ShotifySelectionToClipboard` - Screenshot selection and copy to clipboard
+- `:ShotifyFileToClipboard` - Screenshot entire file and copy to clipboard
+
+**Keybindings (optional):**
+
+```lua
+-- Add to your config for convenient shortcuts
+vim.keymap.set('v', '<leader>ss', ':ShotifySelection<CR>', { desc = 'Screenshot selection' })
+vim.keymap.set('n', '<leader>sf', ':ShotifyFile<CR>', { desc = 'Screenshot file' })
+vim.keymap.set('v', '<leader>sc', ':ShotifySelectionToClipboard<CR>', { desc = 'Screenshot to clipboard' })
+```
+
+**Configuration:**
+
+```lua
+require('shotify').setup({
+  cli_path = 'shotify',              -- Path to shotify CLI
+  theme = 'github-dark',             -- Color theme
+  width = 800,                       -- Screenshot width in pixels
+  show_line_numbers = true,          -- Show line numbers
+  padding = '2rem',                  -- Padding around code
+  background = '#1e1e1e',            -- Background color
+  scale = 2,                         -- Resolution scale (1=normal, 2=retina, 3=ultra)
+  output_directory = '~/Screenshots', -- Where to save screenshots
+})
+```
+
+**Platform Notes:**
+- **macOS**: Clipboard support works out of the box
+- **Linux**: Requires `xclip` for clipboard functionality (`sudo apt-get install xclip`)
+- **Windows**: Clipboard support uses PowerShell (built-in)
+
+See [adapters/nvim/README.md](adapters/nvim/README.md) for more details.
+
 ## Available Themes
 
 Shotify uses [Shiki](https://shiki.style) for syntax highlighting, providing access to 55 beautiful bundled themes. You can configure the theme via:
 - CLI: `--theme <name>` flag
 - VS Code: `shotify.theme` setting
 - Emacs: `shotify-theme` variable
+- Neovim: `theme` option in `require('shotify').setup()`
 - Core API: `theme` option in `renderHtml()` or `renderPng()`
 
 **Popular Themes:**
