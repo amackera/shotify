@@ -1,5 +1,7 @@
 # Shotify for Neovim
 
+> **Beta**: This plugin is in beta. Please report any issues.
+
 Take beautiful screenshots of your code in Neovim.
 
 ## Prerequisites
