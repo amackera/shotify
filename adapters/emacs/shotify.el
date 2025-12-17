@@ -49,6 +49,21 @@
   :type 'directory
   :group 'shotify)
 
+(defcustom shotify-padding "2rem"
+  "Padding around the code in the screenshot."
+  :type 'string
+  :group 'shotify)
+
+(defcustom shotify-background "#1e1e1e"
+  "Background color for the screenshot."
+  :type 'string
+  :group 'shotify)
+
+(defcustom shotify-scale 2
+  "DPI scale factor for the screenshot."
+  :type 'integer
+  :group 'shotify)
+
 (defun shotify--get-language ()
   "Detect the programming language from the current major mode."
   (let ((mode-name (symbol-name major-mode)))
@@ -83,22 +98,73 @@
       (make-directory dir t))
     (expand-file-name filename dir)))
 
-(defun shotify--build-command (code lang start-line output-path &optional title)
-  "Build the shotify CLI command.
-CODE is the code to screenshot, LANG is the language,
-START-LINE is the starting line number, OUTPUT-PATH is where to save,
+(defun shotify--build-command (lang start-line output-path &optional title)
+  "Build the shotify CLI command arguments.
+LANG is the language, START-LINE is the starting line number,
+OUTPUT-PATH is where to save (nil for stdout),
 and TITLE is an optional title."
   (let ((args (list shotify-cli-path
                     "--lang" lang
                     "--theme" shotify-theme
                     "--width" (number-to-string shotify-width)
-                    "--start-line" (number-to-string start-line)
-                    "--out" output-path)))
+                    "--padding" shotify-padding
+                    "--background" shotify-background
+                    "--scale" (number-to-string shotify-scale)
+                    "--start-line" (number-to-string start-line))))
+    (when output-path
+      (setq args (append args (list "--out" output-path))))
     (when title
       (setq args (append args (list "--title" title))))
     (unless shotify-show-line-numbers
       (setq args (append args (list "--no-line-numbers"))))
     args))
+
+(defun shotify--run-cli (code args &optional on-success)
+  "Run the shotify CLI with CODE as stdin and ARGS as arguments.
+ON-SUCCESS is called with no arguments if the command succeeds."
+  (message "Generating screenshot...")
+  (with-temp-buffer
+    (insert code)
+    (let ((exit-code (apply #'call-process-region
+                            (point-min)
+                            (point-max)
+                            (car args)
+                            nil
+                            (current-buffer)
+                            nil
+                            (cdr args))))
+      (if (= exit-code 0)
+          (when on-success (funcall on-success))
+        (error "Shotify failed: %s" (buffer-string))))))
+
+(defun shotify--open-file (path)
+  "Open PATH in the system file manager."
+  (cond
+   ;; macOS
+   ((eq system-type 'darwin)
+    (call-process "open" nil 0 nil "-R" path))
+   ;; Linux
+   ((eq system-type 'gnu/linux)
+    (call-process "xdg-open" nil 0 nil (file-name-directory path)))
+   ;; Windows
+   ((memq system-type '(windows-nt cygwin))
+    (call-process "explorer" nil 0 nil "/select," (convert-standard-filename path)))))
+
+(defun shotify--copy-to-clipboard (path)
+  "Copy the image at PATH to the system clipboard."
+  (cond
+   ;; macOS - use osascript
+   ((eq system-type 'darwin)
+    (call-process "osascript" nil nil nil
+                  "-e" (format "set the clipboard to (read (POSIX file \"%s\") as TIFF picture)" path)))
+   ;; Linux - use xclip
+   ((eq system-type 'gnu/linux)
+    (call-process-shell-command
+     (format "xclip -selection clipboard -t image/png -i '%s'" path)))
+   ;; Windows - use PowerShell
+   ((memq system-type '(windows-nt cygwin))
+    (call-process "powershell" nil nil nil
+                  "-command" (format "Set-Clipboard -Path '%s'" (convert-standard-filename path))))))
 
 ;;;###autoload
 (defun shotify-screenshot (start end)
@@ -107,36 +173,42 @@ and TITLE is an optional title."
   (let* ((code (buffer-substring-no-properties start end))
          (lang (shotify--get-language))
          (start-line (line-number-at-pos start))
-         (filename (file-name-nondirectory (buffer-file-name)))
-         (title (when filename filename))
+         (buf-file (buffer-file-name))
+         (title (when buf-file (file-name-nondirectory buf-file)))
          (output-path (shotify--get-output-path))
-         (args (shotify--build-command code lang start-line output-path title)))
-    (message "Generating screenshot...")
-    (with-temp-buffer
-      (insert code)
-      (let ((exit-code (apply 'call-process-region
-                              (point-min)
-                              (point-max)
-                              (car args)
-                              nil
-                              (current-buffer)
-                              nil
-                              (cdr args))))
-        (if (= exit-code 0)
-            (progn
-              (message "Screenshot saved: %s" output-path)
-              (when (fboundp 'do-applescript)
-                ;; On macOS, open the screenshot
-                (do-applescript
-                 (format "tell application \"Finder\" to open POSIX file \"%s\""
-                         output-path))))
-          (error "Shotify failed: %s" (buffer-string)))))))
+         (args (shotify--build-command lang start-line output-path title)))
+    (shotify--run-cli code args
+                      (lambda ()
+                        (message "Screenshot saved: %s" output-path)
+                        (shotify--open-file output-path)))))
 
 ;;;###autoload
 (defun shotify-screenshot-buffer ()
   "Take a screenshot of the entire buffer."
   (interactive)
   (shotify-screenshot (point-min) (point-max)))
+
+;;;###autoload
+(defun shotify-screenshot-to-clipboard (start end)
+  "Take a screenshot of the selected region and copy to clipboard."
+  (interactive "r")
+  (let* ((code (buffer-substring-no-properties start end))
+         (lang (shotify--get-language))
+         (start-line (line-number-at-pos start))
+         (buf-file (buffer-file-name))
+         (title (when buf-file (file-name-nondirectory buf-file)))
+         (output-path (shotify--get-output-path))
+         (args (shotify--build-command lang start-line output-path title)))
+    (shotify--run-cli code args
+                      (lambda ()
+                        (shotify--copy-to-clipboard output-path)
+                        (message "Screenshot copied to clipboard")))))
+
+;;;###autoload
+(defun shotify-screenshot-buffer-to-clipboard ()
+  "Take a screenshot of the entire buffer and copy to clipboard."
+  (interactive)
+  (shotify-screenshot-to-clipboard (point-min) (point-max)))
 
 (provide 'shotify)
 
