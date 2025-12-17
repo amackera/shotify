@@ -3,7 +3,7 @@
 ;; Copyright (C) 2025
 
 ;; Author: Shotify Contributors
-;; Version: 0.1.0
+;; Version: 0.3.0
 ;; Package-Requires: ((emacs "25.1"))
 ;; Keywords: tools, convenience
 ;; URL: https://github.com/amackera/shotify
